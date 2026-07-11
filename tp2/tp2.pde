@@ -39,7 +39,9 @@ int posX = 300;
 
 int posY = 100;
 
-int segundos;
+int segundos, t;
+
+int t_pantalla = 1000;
 
 int inicioTiempo;
 
@@ -50,8 +52,6 @@ int pantalla = 0;
 void setup() {
 
   size(640, 480);
-
-
 
   // ----------IMAGENES-----------\\
   image = loadImage("logo.png");
@@ -71,16 +71,20 @@ void setup() {
   Hollow = loadImage("Hollow Knight.png");
 
   Destello = loadImage("Destello.png");
-  
+
   // ----------TEXTO PERSONALIZADO----------- \\
   fuente = loadFont("Book.vlw");
 
   textFont(fuente, 30);
+  segundos = millis();
+  t = 0;
 }
 
 void draw() {
 
-segundos = millis()/1000;
+  if (pantalla !=0) {
+    t = millis() - segundos;
+  }
 
   // ----------PANTALLA INICIO----------- \\
   if (pantalla == 0) {
@@ -97,7 +101,7 @@ segundos = millis()/1000;
   }
 
   // ----------PANTALLA HISTORIA----------- \\
-  else if (segundos == 5) {
+  else if (t <= t_pantalla *10) {
 
     pantalla = 1;
 
@@ -105,19 +109,36 @@ segundos = millis()/1000;
 
     fill(255);
 
-    image(inicio1, 1, 300, 325, 180);
+    if (t < 2000) {
+      image(inicio1, 1, 700 - t*0.20, 325, 180);
+    } else {
+      image(inicio1, 1, 300, 325, 180);
+    }
 
-    image(Inicio2, 315, 300, 330, 200);
+    if (t < 2000) {
+      image(Inicio2, 315, 700 - t*0.20, 325, 180);
+    } else {
+      image(Inicio2, 315, 300, 330, 180);
+    }
 
     textSize(25);
 
-    text("La Historia", 260, 35);
+    if (t < 2000) {
+      text("La Historia", -200 + t*0.23, 35);
+    } else {
+      text("La Historia", 260, 35);
+    }
 
-    text(historia1, 1, 80);
+
+    if (t < 2000) {
+      text(historia1, -500 + t*0.25, 80);
+    } else {
+      text(historia1, 5, 80);
+    }
   }
 
   // ----------PANTALLA HISTORIA 2----------- \\
-  else if (segundos == 10) {
+  else if (t >= t_pantalla *10 && t < t_pantalla *20) {
 
     pantalla = 2;
 
@@ -125,15 +146,28 @@ segundos = millis()/1000;
 
     fill(255);
 
-    image(inicio3, 110, 265, 400, 225);
+    if (t<2000+t_pantalla *10) {
+
+      image(inicio3, 110, 665-(t-t_pantalla *10)*0.20, 400, 225);
+    } else {
+
+      image(inicio3, 110, 265, 400, 225);
+    }
 
     textSize(25); // La Historia
 
-    text(historia2, 5, 40);
+    if (t<2000+t_pantalla *10) {
+
+      text(historia2, 400-(t-t_pantalla *10)*0.20, 40);
+    } else {
+
+      text(historia2, 5, 40);
+    }
   }
 
+
   // ----------PANTALLA PERSONAJES----------- \\
-  else if (segundos == 15) {
+  else if (t >= t_pantalla *20 && t < t_pantalla *30) {
 
     pantalla = 3;
 
@@ -141,19 +175,43 @@ segundos = millis()/1000;
 
     fill(255);
 
-    image(Knight, 1, 120, 250, 250);
+    if (t < 2000 + t_pantalla *20) {
+
+      image(Knight, -400 + (t - t_pantalla *20) * 0.20, 120, 250, 250);
+    } else {
+
+      image(Knight, 1, 120, 250, 250);
+    }
 
     textSize(25);
 
-    text ("Personajes", 260, 35);
+    if (t < 2000 + t_pantalla *20) {
 
-    text (Caballerito, 210, 200);
+      text("Personajes", -145 + (t - t_pantalla *20)* 0.20, 35);
+    } else {
 
-    text("Knight", 90, 400);
+      text ("Personajes", 260, 35);
+    }
+
+    if (t < 2000 + t_pantalla *20) {
+
+      text(Caballerito, 605 - (t - t_pantalla *20)* 0.20, 200);
+    } else {
+
+      text (Caballerito, 210, 200);
+    }
+
+    if (t < 2000 + t_pantalla *20) {
+
+      text("Knight", -310 + (t - t_pantalla *20)* 0.20, 400);
+    } else {
+
+      text("Knight", 90, 400);
+    }
   }
 
   // ----------PANTALLA PERSONAJES 2----------- \\
-  else if (segundos == 20) {
+  else if (t >= t_pantalla *30 && t < t_pantalla *40) {
 
     pantalla = 4;
 
@@ -161,17 +219,36 @@ segundos = millis()/1000;
 
     fill(255);
 
-    image(Hornet, 130, 45, 300, 250);
+    if (t < 2000 + t_pantalla *30) {
 
+      image(Hornet, 525 - (t - t_pantalla *30)* 0.20, 45, 300, 250);
+    } else {
+
+      image(Hornet, 130, 45, 300, 250);
+    }
     textSize(25);
 
-    text(hornet, 1, 325);
+    if (t < 2000 + t_pantalla *30) {
 
-    text ("Hornet", 260, 35);
+      text(hornet, -395 + (t - t_pantalla *30) * 0.20, 325);
+    } else {
+
+      text(hornet, 1, 325);
+    }
+
+    if (t < 2000 + t_pantalla *30) {
+
+      text("Hornet", -140 + (t - t_pantalla *30) * 0.20, 35);
+    } else {
+
+      text ("Hornet", 260, 35);
+    }
   }
 
+
+
   // ----------PANTALLA PERSONAJES 3----------- \\
-  else if (segundos == 25) {
+  else if (t >= t_pantalla *40 && t < t_pantalla *50) {
 
     pantalla = 5;
 
@@ -179,15 +256,33 @@ segundos = millis()/1000;
 
     fill(255);
 
-    image(Quirrel, 1, 120, 250, 250);
+    if (t < 2000 + t_pantalla *40) {
 
-    text(quirrel, 210, 190);
+      image(Quirrel, -395 + (t - t_pantalla *40) * 0.20, 120, 250, 250);
+    } else {
 
-    text("Quirrel", 60, 400);
+      image(Quirrel, 1, 120, 250, 250);
+    }
+
+    if (t < 2000 + t_pantalla *40) {
+
+      text(quirrel, 605 - (t - t_pantalla *40) * 0.20, 190);
+    } else {
+
+      text(quirrel, 210, 190);
+    }
+
+    if (t < 2000 + t_pantalla *40) {
+
+      text("Quirrel", -340 + (t - t_pantalla *40) * 0.20, 400);
+    } else {
+
+      text("Quirrel", 60, 400);
+    }
   }
 
   // ----------PANTALLA ANTAGONISTAS----------- \\
-  else if (segundos == 30) {
+  else if (t >= t_pantalla *50 && t < t_pantalla *60) {
 
     pantalla = 6;
 
@@ -195,14 +290,33 @@ segundos = millis()/1000;
 
     fill(255);
 
-    text("Antagonistas", 260, 35);
+    if (t < 2000 + t_pantalla *50) {
 
-    image(Hollow, 75, 145);
+      text("Antagonistas", -140 + (t - t_pantalla *50) * 0.20, 35);
+    } else {
 
-    text(hollowknight, 1, 80, 225);
+      text("Antagonistas", 260, 35);
+    }
+
+    if (t < 2000 + t_pantalla *50) {
+
+      image(Hollow, 490 - (t - t_pantalla *50) *0.20, 145);
+    } else {
+
+      image(Hollow, 90, 145);
+    }
+
+    if (t < 2000 + t_pantalla *50) {
+
+      text(hollowknight, -400 + (t - t_pantalla *50) * 0.20, 80);
+    } else {
+
+
+      text(hollowknight, 1, 80, 225);
+    }
   }
   // ----------PANTALLA ANTAGONISTAS 2----------- \\
-  else if (segundos == 35) {
+  else if (t >= t_pantalla *60 && t < t_pantalla *70) {
 
     pantalla = 7;
 
@@ -210,14 +324,36 @@ segundos = millis()/1000;
 
     fill(255);
 
-    text("Destello", 260, 35);
 
-    image(Destello, 115, 125);
+    if (t < 2000 + t_pantalla *60) {
 
-    text(destello, 1, 75);
+      text("Destello", -130 + (t - t_pantalla *60) *0.20, 35);
+    } else {
+
+      text("Destello", 270, 35);
+    }
+
+    if (t < 2000 + t_pantalla *60) {
+
+      image(Destello, 520 - (t - t_pantalla *60) * 0.20, 125);
+    } else {
+
+      image(Destello, 125, 125);
+    }
+
+    if (t < 2000 + t_pantalla *60) {
+
+      text(destello, -400 + (t - t_pantalla *60)* 0.20, 75);
+    } else {
+
+
+      text(destello, 1, 75);
+    }
   }
+
+
   // ----------PANTALLA RESET----------- \\
-  else if (segundos == 40) {
+  else if (t >= t_pantalla *70 && t < t_pantalla *80) {
 
     pantalla = 8;
 
@@ -225,6 +361,6 @@ segundos = millis()/1000;
 
     fill(255);
 
-    text("RESET", 250, 340);
+    text("RESET", 280, 240);
   }
 } //draw termina ACA
